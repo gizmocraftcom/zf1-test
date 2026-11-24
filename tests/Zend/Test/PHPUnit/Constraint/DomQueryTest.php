@@ -20,6 +20,7 @@
  * @version    $Id$
  */
 
+use PHPUnit\Framework\Attributes\Group;
 
 /**
  * @category   Zend
@@ -27,14 +28,12 @@
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @group      Zend_Test
- * @group      Zend_Test_PHPUnit
  */
+#[Group('Zend_Test')]
+#[Group('Zend_Test_PHPUnit')]
 class Zend_Test_PHPUnit_Constraint_DomQueryTest extends PHPUnit\Framework\TestCase
 {
-    /**
-     * @group ZF-4010
-     */
+    #[Group('ZF-4010')]
     public function testShouldAllowMatchingOfAttributeValues()
     {
         $html = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -63,9 +62,7 @@ class Zend_Test_PHPUnit_Constraint_DomQueryTest extends PHPUnit\Framework\TestCa
         $this->assertTrue($result);
     }
 
-    /**
-     * @group issue-303
-     */
+    #[Group('issue-303')]
     public function testShouldAllowMatchingZeroCounts()
     {
         $html = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">

@@ -20,6 +20,9 @@
  * @version    $Id$
  */
 
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\DoesNotPerformAssertions;
+use PHPUnit\Framework\Attributes\Group;
 
 /**
  * Test class for Zend_Test_PHPUnit_ControllerTestCase.
@@ -29,9 +32,9 @@
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @group      Zend_Test
- * @group      Zend_Test_PHPUnit
  */
+#[Group('Zend_Test')]
+#[Group('Zend_Test_PHPUnit')]
 class Zend_Test_PHPUnit_ControllerTestCaseTest extends PHPUnit\Framework\TestCase
 {
     protected $testCase;
@@ -257,9 +260,7 @@ class Zend_Test_PHPUnit_ControllerTestCaseTest extends PHPUnit\Framework\TestCas
         $this->assertStringContainsString('FooController::barAction', $content, $content);
     }
 
-    /**
-     * @doesNotPerformAssertions
-     */
+    #[DoesNotPerformAssertions]
     public function testAssertQueryShouldDoNothingForValidResponseContent()
     {
         $this->testCase->getFrontController()->setControllerDirectory(realpath(dirname(__FILE__)) . '/_files/application/controllers', 'default');
@@ -281,15 +282,12 @@ class Zend_Test_PHPUnit_ControllerTestCaseTest extends PHPUnit\Framework\TestCas
         $this->testCase->assertQueryCountMax('div#foo legend.bar', 2, $body);
     }
 
-    /**
-     * @group ZF-4673
-     */
+    #[Group('ZF-4673')]
     public function testAssertionsShouldIncreasePhpUnitAssertionCounter()
     {
-        $this->markTestSkipped('This is no longer possible in PHPUnit 10');
-        $this->assertSame(0, $this->testCase->getNumAssertions());
+        $this->assertSame(0, $this->testCase->numberOfAssertionsPerformed());
         $this->testAssertQueryShouldDoNothingForValidResponseContent();
-        $this->assertGreaterThan(0, $this->testCase->getNumAssertions());
+        $this->assertGreaterThan(0, $this->testCase->numberOfAssertionsPerformed());
     }
 
     public function testAssertQueryShouldThrowExceptionsForInValidResponseContent()
@@ -358,9 +356,7 @@ class Zend_Test_PHPUnit_ControllerTestCaseTest extends PHPUnit\Framework\TestCas
         }
     }
 
-    /**
-     * @doesNotPerformAssertions
-     */
+    #[DoesNotPerformAssertions]
     public function testAssertXpathShouldDoNothingForValidResponseContent()
     {
         $this->testCase->getFrontController()->setControllerDirectory(dirname(__FILE__) . '/_files/application/controllers');
@@ -445,9 +441,7 @@ class Zend_Test_PHPUnit_ControllerTestCaseTest extends PHPUnit\Framework\TestCas
         }
     }
 
-    /**
-     * @doesNotPerformAssertions
-     */
+    #[DoesNotPerformAssertions]
     public function testRedirectAssertionsShouldDoNothingForValidAssertions()
     {
         $this->testCase->getResponse()->setRedirect('/foo');
@@ -464,9 +458,7 @@ class Zend_Test_PHPUnit_ControllerTestCaseTest extends PHPUnit\Framework\TestCas
         $this->testCase->assertNotRedirectRegex('/bar/i');
     }
 
-    /**
-     * @doesNotPerformAssertions
-     */
+    #[DoesNotPerformAssertions]
     public function testHeaderAssertionShouldDoNothingForValidComparison()
     {
         $this->testCase->getResponse()->setHeader('Content-Type', 'x-application/my-foo');
@@ -533,9 +525,7 @@ class Zend_Test_PHPUnit_ControllerTestCaseTest extends PHPUnit\Framework\TestCas
         }
     }
 
-    /**
-     * @doesNotPerformAssertions
-     */
+    #[DoesNotPerformAssertions]
     public function testModuleAssertionShouldDoNothingForValidComparison()
     {
         $this->testCase->getFrontController()->setControllerDirectory(dirname(__FILE__) . '/_files/application/controllers');
@@ -553,9 +543,7 @@ class Zend_Test_PHPUnit_ControllerTestCaseTest extends PHPUnit\Framework\TestCas
         $this->testCase->assertNotModule('default');
     }
 
-    /**
-     * @doesNotPerformAssertions
-     */
+    #[DoesNotPerformAssertions]
     public function testControllerAssertionShouldDoNothingForValidComparison()
     {
         $this->testCase->getFrontController()->setControllerDirectory(dirname(__FILE__) . '/_files/application/controllers');
@@ -573,9 +561,7 @@ class Zend_Test_PHPUnit_ControllerTestCaseTest extends PHPUnit\Framework\TestCas
         $this->testCase->assertNotController('zend-test-php-unit-foo');
     }
 
-    /**
-     * @doesNotPerformAssertions
-     */
+    #[DoesNotPerformAssertions]
     public function testActionAssertionShouldDoNothingForValidComparison()
     {
         $this->testCase->getFrontController()->setControllerDirectory(dirname(__FILE__) . '/_files/application/controllers');
@@ -593,9 +579,7 @@ class Zend_Test_PHPUnit_ControllerTestCaseTest extends PHPUnit\Framework\TestCas
         $this->testCase->assertNotAction('baz');
     }
 
-    /**
-     * @doesNotPerformAssertions
-     */
+    #[DoesNotPerformAssertions]
     public function testRouteAssertionShouldDoNothingForValidComparison()
     {
         $this->testCase->getFrontController()->setControllerDirectory(dirname(__FILE__) . '/_files/application/controllers');
@@ -638,9 +622,7 @@ class Zend_Test_PHPUnit_ControllerTestCaseTest extends PHPUnit\Framework\TestCas
         $this->assertNotSame($response, $test);
     }
 
-    /**
-     * @group ZF-4511
-     */
+    #[Group('ZF-4511')]
     public function testResetRequestShouldClearRequestObject()
     {
         $this->testCase->getFrontController()->setControllerDirectory(dirname(__FILE__) . '/_files/application/controllers');
@@ -672,9 +654,7 @@ class Zend_Test_PHPUnit_ControllerTestCaseTest extends PHPUnit\Framework\TestCas
         $this->assertStringNotContainsString('Foo', $view->headTitle()->__toString(), 'Head title persisted?');
     }
 
-    /**
-     * @group ZF-4070
-     */
+    #[Group('ZF-4070')]
     public function testQueryParametersShouldPersistFollowingDispatch()
     {
         $this->testCase->getFrontController()->setControllerDirectory(dirname(__FILE__) . '/_files/application/controllers');
@@ -691,9 +671,7 @@ class Zend_Test_PHPUnit_ControllerTestCaseTest extends PHPUnit\Framework\TestCas
         $this->assertEquals('bond', $request->getQuery('james'), '(post) Failed retrieving james parameter: ' . var_export($request->getQuery(), 1));
     }
 
-    /**
-     * @group ZF-4070
-     */
+    #[Group('ZF-4070')]
     public function testQueryStringShouldNotOverwritePreviouslySetQueryParameters()
     {
         $this->testCase->getFrontController()->setControllerDirectory(dirname(__FILE__) . '/_files/application/controllers');
@@ -711,9 +689,7 @@ class Zend_Test_PHPUnit_ControllerTestCaseTest extends PHPUnit\Framework\TestCas
         $this->assertEquals('bond', $request->getQuery('james'), '(post) Failed retrieving james parameter: ' . var_export($request->getQuery(), 1));
     }
 
-    /**
-     * @group ZF-3979
-     */
+    #[Group('ZF-3979')]
     public function testSuperGlobalArraysShouldBeClearedDuringSetUp()
     {
         $this->testCase->getFrontController()->setControllerDirectory(dirname(__FILE__) . '/_files/application/controllers');
@@ -728,9 +704,7 @@ class Zend_Test_PHPUnit_ControllerTestCaseTest extends PHPUnit\Framework\TestCas
         $this->assertNull($request->getCookie('bar'), 'Retrieved bar cookie parameter: ' . var_export($request->getCookie(), 1));
     }
 
-    /**
-     * @group ZF-4511
-     */
+    #[Group('ZF-4511')]
     public function testResetRequestShouldClearPostAndQueryParameters()
     {
         $this->testCase->getFrontController()->setControllerDirectory(dirname(__FILE__) . '/_files/application/controllers');
@@ -746,9 +720,7 @@ class Zend_Test_PHPUnit_ControllerTestCaseTest extends PHPUnit\Framework\TestCas
         $this->assertEmpty($_GET);
     }
 
-    /**
-     * @group ZF-7839
-     */
+    #[Group('ZF-7839')]
     public function testTestCaseShouldAllowUsingApplicationObjectAsBootstrap()
     {
         $application = new Zend_Application('testing', array(
@@ -766,9 +738,7 @@ class Zend_Test_PHPUnit_ControllerTestCaseTest extends PHPUnit\Framework\TestCas
         );
     }
 
-    /**
-     * @group ZF-8193
-     */
+    #[Group('ZF-8193')]
     public function testWhenApplicationObjectUsedAsBootstrapTestCaseShouldExecuteBootstrapRunMethod()
     {
         $application = new Zend_Application('testing', array(
@@ -789,10 +759,8 @@ class Zend_Test_PHPUnit_ControllerTestCaseTest extends PHPUnit\Framework\TestCas
         $this->assertTrue($boot === $this->testCase->bootstrap->getBootstrap(), $type);
     }
 
-    /**
-     * @group ZF-7496
-     * @dataProvider providerRedirectWorksAsExpectedFromHookMethodsInActionController
-     */
+    #[Group('ZF-7496')]
+    #[DataProvider('providerRedirectWorksAsExpectedFromHookMethodsInActionController')]
     public function testRedirectWorksAsExpectedFromHookMethodsInActionController($dispatchTo)
     {
         $this->testCase->getFrontController()->setControllerDirectory(dirname(__FILE__) . '/_files/application/controllers');
@@ -813,10 +781,8 @@ class Zend_Test_PHPUnit_ControllerTestCaseTest extends PHPUnit\Framework\TestCas
         );
     }
 
-    /**
-     * @group ZF-7496
-     * @dataProvider providerRedirectWorksAsExpectedFromHookMethodsInFrontControllerPlugin
-     */
+    #[Group('ZF-7496')]
+    #[DataProvider('providerRedirectWorksAsExpectedFromHookMethodsInFrontControllerPlugin')]
     public function testRedirectWorksAsExpectedFromHookMethodsInFrontControllerPlugin($pluginName)
     {
         require_once dirname(__FILE__) . "/_files/application/plugins/RedirectFrom{$pluginName}.php";
@@ -831,11 +797,11 @@ class Zend_Test_PHPUnit_ControllerTestCaseTest extends PHPUnit\Framework\TestCas
     }
 
     /**
-     * @group ZF-12492
      * @internal Since header value is being cast into a string, we should only
      * need to check 0 and 0.0
-     * @doesNotPerformAssertions
      */
+    #[Group('ZF-12492')]
+    #[DoesNotPerformAssertions]
     public function testHeaderAssertionShouldDoNothingForValidComparisonWithZeroForValue()
     {
         $this->testCase->getResponse()->setHeader('Expires', '0', true);
