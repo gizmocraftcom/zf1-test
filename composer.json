@@ -141,6 +141,38 @@
         {
             "type": "vcs",
             "url": "https://github.com/gizmocraftcom/zf1-dom"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/gizmocraftcom/zf1-controller-action-helper-json"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/gizmocraftcom/zf1-dojo"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/gizmocraftcom/zf1-file"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/gizmocraftcom/zf1-form"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/gizmocraftcom/zf1-progressbar"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/gizmocraftcom/zf1-text"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/gizmocraftcom/zf1-validate-file"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/gizmocraftcom/zf1-view-helper-json"
         }
     ],
     "require": {
@@ -155,8 +187,8 @@
         "gizmocraft/zendframework1-filter": "^2.0.0",
         "gizmocraft/zendframework1-layout": "^2.0.0",
         "gizmocraft/zendframework1-session": "^3.0.0",
-        "phpunit/phpunit": "^10.5.0",
-        "sebastian/comparator": "^5.0.1"
+        "phpunit/phpunit": "^10.5 || ^11.5 || ^12.5 || ^13.0",
+        "sebastian/comparator": "^5.0.1 || ^6.0 || ^7.0 || ^8.0"
     },
     "autoload": {
         "psr-0": {
@@ -169,12 +201,11 @@
         }
     },
     "require-dev": {
-        "phpstan/phpstan": "2.1.33",
-        "friendsofphp/php-cs-fixer": "3.92.5",
-        "gizmocraft/zendframework1-controller-action-helper-json": "^1.0.5",
-        "gizmocraft/zendframework1-dojo": "^1.0.5",
-        "maglnet/composer-require-checker": "^3.0.0",
-        "phpro/grumphp-shim": "^2.0.0"
+        "phpstan/phpstan": "^2.3.7",
+        "friendsofphp/php-cs-fixer": "^3.95.32",
+        "gizmocraft/zendframework1-controller-action-helper-json": "^2.0.0",
+        "gizmocraft/zendframework1-dojo": "^2.0.0",
+        "phpro/grumphp-shim": "^2.27.2"
     },
     "archive": {
         "exclude": [
@@ -182,7 +213,7 @@
         ]
     },
     "scripts": {
-        "test": "phpunit",
+        "test": "phpunit ./tests",
         "test-with-coverage": "phpunit --coverage-clover=clover.xml",
         "phpstan": "phpstan analyze -c phpstan.neon --no-progress --ansi --memory-limit=768M",
         "style-check": "php-cs-fixer fix --dry-run -vv"
